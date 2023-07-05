@@ -10,19 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private lazy var firstButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("First Button", for: .normal)
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .systemBlue
-        config.baseForegroundColor = .systemGray
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10.0, leading: 14.0, bottom: 10.0, trailing: 14.0)
-        config.image = UIImage(systemName: "star")
-        config.imagePlacement = .trailing
-        config.imageColorTransformer = .grayscale
-        config.imagePadding = 8
-        button.configuration = config
-        button.setTitleColor(.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        var button = UIButton.makeMyButton(title: "First Button")
         let touchDown = UILongPressGestureRecognizer(target:self, action: #selector(callAnimation))
             touchDown.minimumPressDuration = 0
         button.gestureRecognizers = [touchDown]
@@ -30,19 +18,7 @@ class ViewController: UIViewController {
     }()
 
     private lazy var secondButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("Second Medium Button", for: .normal)
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .systemBlue
-        config.baseForegroundColor = .systemGray
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10.0, leading: 14.0, bottom: 10.0, trailing: 14.0)
-        config.image = UIImage(systemName: "star")
-        config.imagePlacement = .trailing
-        config.imageColorTransformer = .grayscale
-        config.imagePadding = 8
-        button.configuration = config
-        button.setTitleColor(.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        var button = UIButton.makeMyButton(title: "Second Medium Button")
         let touchDown = UILongPressGestureRecognizer(target:self, action: #selector(callAnimation))
             touchDown.minimumPressDuration = 0
         button.gestureRecognizers = [touchDown]
@@ -50,20 +26,8 @@ class ViewController: UIViewController {
     }()
 
     private lazy var thirdButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("Third", for: .normal)
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .systemBlue
-        config.baseForegroundColor = .systemGray
-        config.contentInsets = NSDirectionalEdgeInsets(top: 10.0, leading: 14.0, bottom: 10.0, trailing: 14.0)
-        config.image = UIImage(systemName: "star")
-        config.imagePlacement = .trailing
-        config.imageColorTransformer = .grayscale
-        config.imagePadding = 8
-        button.configuration = config
-        button.setTitleColor(.white, for: .normal)
+        var button = UIButton.makeMyButton(title: "Third")
         button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
@@ -104,7 +68,6 @@ class ViewController: UIViewController {
     }
 
     @objc func animationDecrease(_ button: UIButton) {
-        let t = button.transform
          UIView.animate(
             withDuration: 1,
             delay: 0,
@@ -130,5 +93,26 @@ class ViewController: UIViewController {
             }
         }
 
+    }
+}
+
+private extension UIButton {
+    static func makeMyButton(title: String) -> UIButton {
+        var config = UIButton.Configuration.filled()
+        config.contentInsets = NSDirectionalEdgeInsets(top: 10.0, leading: 14.0, bottom: 10.0, trailing: 14.0)
+        config.image = UIImage(systemName: "star")
+        config.imagePlacement = .trailing
+        config.image?.withTintColor(.white)
+        config.imagePadding = 8
+
+        let button = UIButton()
+        button.setTitle(title, for: .normal)
+        button.configuration = config
+        button.tintColor = UIColor(red: 0.13, green: 0.55, blue: 0.13, alpha: 1.00)
+        button.backgroundColor = UIColor(red: 0.48, green: 0.41, blue: 0.93, alpha: 1.00)
+        button.layer.cornerRadius = 6
+        button.setTitleColor(.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }
 }
